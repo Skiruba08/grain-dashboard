@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Global Grain Distribution Explorer</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+<body>
+  <header class="container">
+    <h1>🌾 Global Grain Distribution Explorer</h1>
+    <p class="subtitle">Interactive KPIs and trends by region and year</p>
+  </header>
+
+  <section class="container filters">
+    <div class="filter">
+      <label for="regionSelect">Region</label>
+      <select id="regionSelect"></select>
+    </div>
+    <div class="filter">
+      <label for="subRegionSelect">Sub-Region</label>
+      <select id="subRegionSelect"></select>
+    </div>
+    <div class="filter">
+      <label for="yearSelect">Year</label>
+      <select id="yearSelect"></select>
+    </div>
+  </section>
+
+  <section class="container kpis">
+    <div class="kpi" id="kpi-production">
+      <div class="kpi-label">Production (MMT)</div>
+      <div class="kpi-value" id="kpiProductionValue">—</div>
+    </div>
+    <div class="kpi" id="kpi-demand">
+      <div class="kpi-label">Total Demand (MMT)</div>
+      <div class="kpi-value" id="kpiDemandValue">—</div>
+    </div>
+    <div class="kpi" id="kpi-balance">
+      <div class="kpi-label">Net Balance (MMT)</div>
+      <div class="kpi-value" id="kpiBalanceValue">—</div>
+    </div>
+    <div class="kpi" id="kpi-ssr">
+      <div class="kpi-label">Self-Sufficiency Ratio</div>
+      <div class="kpi-value" id="kpiSSRValue">—</div>
+    </div>
+  </section>
+
+  <section class="container charts">
+    <div class="chart-card">
+      <h3>Production vs. Demand over Time</h3>
+      <div id="trendChart"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Supply Gap by Year</h3>
+      <div id="gapChart"></div>
+    </div>
+  </section>
+
+  <footer class="container footer">
+    <p>
+      Data: Grain demand & production (MMT). Dashboard by Sherin Kiruba •
+      <a id="repoLink" href="#" target="_blank" rel="noopener">GitHub Repo</a>
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
