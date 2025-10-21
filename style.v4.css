@@ -6,13 +6,11 @@ body{
   color:#1f2937;
   background:#fafaf9;
 
-  /* hard center ALL top-level sections */
   display:flex;
   flex-direction:column;
   align-items:center;
 }
 
-/* every main block gets the same centered width */
 header,.filters,.kpis,.charts,.footer{
   width:min(1200px,96vw);
   margin:0 auto;
@@ -48,7 +46,6 @@ h1{margin:0;font-size:28px}
 
 .footer{color:#6b7280;font-size:13px;padding:18px 0 40px}
 
-/* responsive */
 @media(max-width:1100px){.kpis{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:900px){.filters{grid-template-columns:1fr}.charts{grid-template-columns:1fr}}
 @media(max-width:520px){.kpis{grid-template-columns:1fr}.kpi-value{font-size:22px}}

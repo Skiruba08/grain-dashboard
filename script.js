@@ -1,5 +1,3 @@
-
-// Load CSV and initialize dashboard
 let RAW = [];
 let WIDE = [];
 const state = { region: 'All', subRegion: 'All', year: 'All' };
@@ -21,7 +19,7 @@ function updateKpis(rows) {
   document.getElementById('kpiSSRValue').textContent        = ssr==null? '—' : (ssr).toFixed(2);
 }
 
-function lineSeries(rows, yKey, name) {
+function lineSeries(rows, yKey, name, color) {
   const byYear = new Map();
   rows.forEach(r => {
     const y = Number(r.Year);
@@ -31,17 +29,27 @@ function lineSeries(rows, yKey, name) {
   });
   const years = Array.from(byYear.keys()).sort((a,b)=>a-b);
   const vals = years.map(y => byYear.get(y));
-  return { x: years, y: vals, name, mode:'lines+markers' };
+  return { 
+    x: years, 
+    y: vals, 
+    name, 
+    mode:'lines+markers',
+    line: { width: 3, color },
+    marker: { size: 6, color },
+    hovertemplate: '<b>Year</b>: %{x}<br><b>'+name+'</b>: %{y:,.1f} MMT<extra></extra>'
+  };
 }
 
 function buildTrend(rows) {
-  const prod = lineSeries(rows, 'Production', 'Production');
-  const dem  = lineSeries(rows, 'TotalDemand', 'Total Demand');
+  const prod = lineSeries(rows, 'Production', 'Production', '#1f77b4');
+  const dem  = lineSeries(rows, 'TotalDemand', 'Total Demand', '#ff7f0e');
   const layout = {
-    margin:{l:50,r:10,t:10,b:40},
-    xaxis:{title:'Year', tickmode:'linear'},
-    yaxis:{title:'MMT'},
-    hovermode:'x unified'
+    margin:{l:60,r:16,t:10,b:56},
+    xaxis:{title:{text:'Year',font:{size:13}},tickmode:'linear',dtick:1},
+    yaxis:{title:{text:'Production / Demand (MMT)',font:{size:13}},tickformat:',.1f',rangemode:'tozero',gridcolor:'rgba(0,0,0,0.08)'},
+    legend:{orientation:'h',y:-0.25},
+    hovermode:'x unified',
+    hoverlabel:{bgcolor:'white',bordercolor:'rgba(0,0,0,0.25)'}
   };
   Plotly.newPlot('trendChart', [prod, dem], layout, {displayModeBar:false, responsive:true});
 }
@@ -56,12 +64,19 @@ function buildGap(rows) {
   });
   const years = Array.from(byYear.keys()).sort((a,b)=>a-b);
   const vals = years.map(y => byYear.get(y));
-  const trace = { x: years, y: vals, type:'bar', name:'Supply Gap' };
+  const trace = { 
+    x: years, 
+    y: vals, 
+    type:'bar', 
+    name:'Supply Gap',
+    hovertemplate:'<b>Year</b>: %{x}<br><b>Supply Gap</b>: %{y:,.1f} MMT<extra></extra>'
+  };
   const layout = {
-    margin:{l:50,r:10,t:10,b:40},
-    xaxis:{title:'Year', tickmode:'linear'},
-    yaxis:{title:'MMT'},
-    hovermode:'x'
+    margin:{l:60,r:16,t:10,b:56},
+    xaxis:{title:{text:'Year',font:{size:13}},tickmode:'linear',dtick:1},
+    yaxis:{title:{text:'Supply Gap (MMT)',font:{size:13}},tickformat:',.1f',zeroline:true,gridcolor:'rgba(0,0,0,0.08)'},
+    hovermode:'x',
+    hoverlabel:{bgcolor:'white',bordercolor:'rgba(0,0,0,0.25)'}
   };
   Plotly.newPlot('gapChart', [trace], layout, {displayModeBar:false, responsive:true});
 }
