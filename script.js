@@ -44,8 +44,8 @@ function buildTrend(rows) {
   const prod = lineSeries(rows, 'Production', 'Production', '#1f77b4');
   const dem  = lineSeries(rows, 'TotalDemand', 'Total Demand', '#ff7f0e');
   const layout = {
-    margin:{l:60,r:16,t:10,b:56},
-    xaxis:{title:{text:'Year',font:{size:13}},tickmode:'linear',dtick:1},
+    margin:{l:60,r:16,t:10,b:72},
+    xaxis:{title:{text:'Year',font:{size:13},standoff:20},tickmode:'linear',dtick:1,tickangle:-45},
     yaxis:{title:{text:'Production / Demand (MMT)',font:{size:13}},tickformat:',.1f',rangemode:'tozero',gridcolor:'rgba(0,0,0,0.08)'},
     legend:{orientation:'h',y:-0.25},
     hovermode:'x unified',
@@ -72,8 +72,8 @@ function buildGap(rows) {
     hovertemplate:'<b>Year</b>: %{x}<br><b>Supply Gap</b>: %{y:,.1f} MMT<extra></extra>'
   };
   const layout = {
-    margin:{l:60,r:16,t:10,b:56},
-    xaxis:{title:{text:'Year',font:{size:13}},tickmode:'linear',dtick:1},
+    margin:{l:60,r:16,t:10,b:72},
+    xaxis:{title:{text:'Year',font:{size:13},standoff:20},tickmode:'linear',dtick:1,tickangle:-45},
     yaxis:{title:{text:'Supply Gap (MMT)',font:{size:13}},tickformat:',.1f',zeroline:true,gridcolor:'rgba(0,0,0,0.08)'},
     hovermode:'x',
     hoverlabel:{bgcolor:'white',bordercolor:'rgba(0,0,0,0.25)'}
